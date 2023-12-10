@@ -1,3 +1,4 @@
+'use client'
 import React, { useReducer } from 'react'
 import '../styles/App.css';
 
