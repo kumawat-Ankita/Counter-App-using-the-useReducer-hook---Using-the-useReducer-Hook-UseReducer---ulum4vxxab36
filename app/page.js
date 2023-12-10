@@ -1,4 +1,5 @@
-import React, { useReducer } from "react";
+import React, { useReducer } from 'react'
+import '../styles/App.css';
 
 const initialTaskState = {
   count: 0,
@@ -6,39 +7,35 @@ const initialTaskState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_TASK':
+    case 'add':
       return { ...state, count: state.count + 1 };
-    case 'DELETE_TASK':
+    case 'delete':
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
-    case 'DELETE_ALL_TASKS':
+    case 'deleteAll':
       return { ...state, count: 0 };
     default:
       return state;
   }
 };
 
-export default function Home() {
+const App = () => {
   const [taskState, dispatch] = useReducer(reducer, initialTaskState);
-
-  const handleAddTask = () => {
-    dispatch({ type: 'ADD_TASK' });
-  };
-
-  const handleDeleteTask = () => {
-    dispatch({ type: 'DELETE_TASK' });
-  };
-
-  const handleDeleteAllTasks = () => {
-    dispatch({ type: 'DELETE_ALL_TASKS' });
-  };
 
   return (
     <div id="main">
       <h2>Task Counter</h2>
-      <button onClick={handleAddTask} id="addTaskBtn">Add a task</button>
-      <button onClick={handleDeleteTask} id="delTaskBtn">Delete a task</button>
-      <button onClick={handleDeleteAllTasks} id="delAllTaskBtn">Delete all tasks</button>
+      <button onClick={() => dispatch({ type: 'add' })} id="addTaskBtn">
+        Add a task
+      </button>
+      <button onClick={() => dispatch({ type: 'delete' })} id="delTaskBtn">
+        Delete a task
+      </button>
+      <button onClick={() => dispatch({ type: 'deleteAll' })} id="delAllTaskBtn">
+        Delete all tasks
+      </button>
       <h3 className="counter">Number of Tasks : {taskState.count}</h3>
     </div>
   );
-}
+};
+
+export default App;
